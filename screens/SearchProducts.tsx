@@ -6,6 +6,8 @@ import { RectButton, TextInput } from 'react-native-gesture-handler';
 import ProductList, { Product } from '../components/ProductList';
 import { View } from '../components/Themed';
 import api from '../services/api';
+import Colors from '../constants/Colors';
+import Layout from '../constants/Layout';
 
 const SearchProducts: React.FC = () => {
   const [list, setList] = React.useState<Product[]>([]);
@@ -20,51 +22,23 @@ const SearchProducts: React.FC = () => {
   return (
     <View style={styles.container}>
       <View
-        style={
-          {
-            padding: 5,
-            flexDirection: 'row'
-          }
-        }
+        style={styles.searchContainer}
       >
         <TextInput
-          style={
-            {
-              backgroundColor: '#bbb',
-              width: 250,
-              height: 30,
-              fontSize: 20,
-              margin: 5,
-              padding: 5
-            }
-          }
+          style={styles.searchInput}
           value={searchValue}
           placeholder="Pesquisar Produto"
           onChangeText={(value) => { setSearchValue(value) }}
         />
         <RectButton
           onPress={handleSearch}
-          style={
-            {
-              width: 30,
-              height: 30,
-              margin: 5,
-              backgroundColor: '#999',
-              borderRadius: 15,
-              justifyContent: 'center'
-            }
-          }
+          style={styles.searchButtom}
         >
           <FontAwesome
             name="search-plus" size={25}
-            style={{
-              alignSelf: 'center',
-
-            }}
+            style={styles.searchIcon}
           />
-
         </RectButton>
-
       </View>
       <ProductList products={list} />
     </View>
@@ -77,6 +51,38 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchContainer: {
+    width: Layout.window.width,
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: Colors.store.backgroundCardDark,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.store.borderDark,
+  },
+  searchInput: {
+    backgroundColor:Colors.store.backgroundLight,
+    borderColor: Colors.store.borderDark,
+    borderRadius: 4,
+    borderWidth: 2,
+    width: 250,
+    height: 30,
+    fontSize: 20,
+    margin: 5,
+    padding: 5,
+    paddingLeft: 10
+  },
+  searchButtom: {
+    width: 30,
+    height: 30,
+    margin: 5,
+    borderRadius: 15,
+    justifyContent: 'center'
+  },
+  searchIcon: {
+    alignSelf: 'center',
+    color: Colors.store.border
   },
   title: {
     fontSize: 20,

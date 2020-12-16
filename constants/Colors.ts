@@ -16,4 +16,14 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  store: {
+    border: '#845132',
+    borderDark: '#805842',
+    background: '#1f596f',
+    backgroundLight: '#768d95',
+    backgroundCard: '#93723f',
+    text: '#2d291e',
+    backgroundCardDark: '#2c3131',
+    textDarkColor: '#9c8d57'
+  }
 };

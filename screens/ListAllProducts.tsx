@@ -5,7 +5,6 @@ import FloatButton from '../components/FloatButton';
 import ProductList, { Product } from "../components/ProductList";
 import NewProduct from "../components/NewProduct";
 import { View } from '../components/Themed';
-import colors from "../constants/Colors";
 import api from '../services/api';
 
 const ListAllProducts: React.FC = () => {
@@ -13,7 +12,6 @@ const ListAllProducts: React.FC = () => {
   const [modalVisible, setModaVisible] = React.useState(false);
 
   React.useEffect(() => {
-    console.log('===========Separator==============')
     api.get<Product[]>('/products').then(response => {
       setList(response.data)
     })
@@ -49,11 +47,7 @@ const ListAllProducts: React.FC = () => {
         onPress={() => {
           showModal()
         }}
-        buttonStyles={{
-          position: 'absolute',
-          right: 20,
-          bottom: 20
-        }}
+        buttonStyles={styles.floatButtom}
         size={50}
       />
     </View>
@@ -61,6 +55,8 @@ const ListAllProducts: React.FC = () => {
 }
 
 export default ListAllProducts;
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,4 +73,9 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  floatButtom: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20
+  }
 });

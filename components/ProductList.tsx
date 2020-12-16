@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { FlatList, Text, Image, TouchableOpacity } from 'react-native';
+import { FlatList, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { baseURL } from "../services/api";
 
-// import { Container } from './styles';
+import colors from "../constants/Colors";
 
 export interface Product {
   id: string;
@@ -25,50 +25,68 @@ const ProductList: React.FC<ListProps> = ({ products }) => {
   }, [navigation])
   return (
     <FlatList
-      style={{ flex: 1, backgroundColor: '#8255e6', width: '100%', padding: 10 }}
+      style={styles.container}
       data={products}
       keyExtractor={item => item.id}
       numColumns={2}
       renderItem={({ item: product }) => (
         <TouchableOpacity
           onPress={() => { nav(product.id) }}
-          style={
-            {
-              margin: 5,
-              flex: 1,
-              backgroundColor: '#555',
-              minHeight: 200,
-            }}>
+          style={styles.card}>
           <Text
-            style={
-              {
-                padding: 5
-              }
-            }
+            style={styles.cardTitle}
           >{product.name}</Text>
           <Image
-            style={
-              {
-                margin: 10,
-                alignSelf: 'center',
-              }
-            }
+            style={styles.cardImage}
             source={{
               uri: `${baseURL}/files/${product.image_url}`,
               height: 100,
               width: 100
             }}></Image>
           <Text
-            style={
-              {
-                padding: 10,
-                paddingTop: 2
-              }
-            }
+            style={styles.cardDescription}
           >{product.description}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity >
       )} />
   )
 }
 
 export default ProductList;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.store.background,
+    width: '100%',
+    padding: 10,
+  },
+  card: {
+    marginHorizontal: 5,
+    marginBottom: 15,
+    flex: 1,
+    backgroundColor: colors.store.backgroundCard,
+    minHeight: 200,
+    borderColor: colors.store.border,
+    borderWidth: 4,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 20
+  },
+  cardTitle: {
+    margin: 10,
+    marginBottom: 0,
+    textAlign: 'center',
+    color: colors.store.text
+  },
+  cardImage: {
+    margin: 10,
+    alignSelf: 'center',
+  },
+  cardDescription: {
+    padding: 10,
+    paddingTop: 2,
+    color: colors.store.text
+  }
+})

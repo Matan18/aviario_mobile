@@ -2,12 +2,13 @@ import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
+import { View } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ListAllProducts from '../screens/ListAllProducts';
 import SearchProducts from '../screens/SearchProducts';
-import { BottomTabParamList, ListParamList,  SearchParamList } from '../types';
+import { BottomTabParamList, ListParamList, SearchParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,7 +17,13 @@ const BottomTabNavigator: React.FC = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="List"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={
+        {
+          activeTintColor: Colors.store.textDarkColor,
+          inactiveBackgroundColor:Colors.store.backgroundCardDark,
+          activeBackgroundColor:Colors.store.backgroundCardDark
+        }
+      }>
       <BottomTab.Screen
         name="List"
         component={TabOneNavigator}
@@ -52,7 +59,14 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="ListScreen"
         component={ListAllProducts}
-        options={{ headerTitle: 'Todos os Produtos' }}
+        options={
+          {
+            headerTitle: 'Todos os Produtos',
+            headerTintColor: Colors.store.textDarkColor,
+            headerBackground: (props) => (
+              <View style={{ backgroundColor: Colors.store.backgroundCardDark, flex: 1 }} />
+            )
+          }}
       />
     </TabOneStack.Navigator>
   );
@@ -66,7 +80,22 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="SearchScreen"
         component={SearchProducts}
-        options={{ headerTitle: 'Pesquisar' }}
+        options={
+          {
+            headerTitle: 'Pesquisar',
+            headerTintColor: Colors.store.textDarkColor,
+            headerBackground: (props) => (
+              <View style={
+                {
+                  backgroundColor: Colors.store.backgroundCardDark,
+                  flex: 1,
+                  borderBottomColor: Colors.store.border,
+                  borderBottomWidth: 1
+                }
+              } />
+            )
+          }
+        }
       />
     </TabTwoStack.Navigator>
   );

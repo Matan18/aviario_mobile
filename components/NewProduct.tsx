@@ -1,9 +1,10 @@
 import React from 'react';
-import { Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from "expo-image-manipulator";
 import api from '../services/api';
 import { Product } from './ProductList';
+import Colors from '../constants/Colors';
 
 // import { Container } from './styles';
 
@@ -96,46 +97,35 @@ const NewProduct: React.FC<INewProductProp> = ({ onProductCreated }) => {
 
   return (
     <View style={
-      {
-        alignSelf: 'center',
-        margin: 50,
-        backgroundColor: '#ddd',
-        borderRadius: 20,
-        width: 300,
-        height: 350,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }
+      styles.container
     }>
       <View>
-        <Text>Nome</Text>
+        <Text style={styles.nameText}>Nome</Text>
         <TextInput
-          style={{ width: 250, height: 30, backgroundColor: '#999', textAlign: 'center' }}
+          style={styles.nameInput}
           value={name}
           placeholder="Coloque o nome do produto"
           onChangeText={(value) => setName(value)}
         />
       </View>
       <View>
-        <Text>Descrição</Text>
+        <Text style={styles.descriptionText}>Descrição</Text>
         <TextInput
-          style={{ width: 250, height: 30, backgroundColor: '#999', textAlign: 'center' }}
+          style={styles.descriptionInput}
           value={description}
           placeholder="Coloque a descrição do produto"
           onChangeText={(value) => setDescription(value)}
         />
       </View>
       <View>
-        <Text>Preço</Text>
+        <Text style={styles.priceText}>Preço</Text>
         <View
-          style={{
-            flexDirection: 'row'
-          }}
+          style={styles.priceView}
         >
           <TextInput
             multiline={true}
             keyboardType='decimal-pad'
-            style={{ width: 250, height: 30, backgroundColor: '#999', textAlign: 'center' }}
+            style={styles.priceInput}
             onEndEditing={(event) => {
               setPrice(parseFloat(event.nativeEvent.text))
             }}
@@ -150,19 +140,11 @@ const NewProduct: React.FC<INewProductProp> = ({ onProductCreated }) => {
           onPress={() => {
             preparePicture()
           }}
-          style={{
-            margin: 5,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
+          style={styles.imageContainer}
         >
-          <Text>Coloque uma Imagem</Text>
+          <Text style={styles.imageTitle}>Coloque uma Imagem</Text>
           <Image
-            style={{
-              alignSelf: 'center',
-              margin: 0,
-              backgroundColor: '#000',
-            }}
+            style={styles.image}
             source={{
               uri: `${image}`,
               width: 100,
@@ -171,22 +153,13 @@ const NewProduct: React.FC<INewProductProp> = ({ onProductCreated }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            margin: 0,
-            height: 50,
-            width: 150,
-            alignItems: 'center',
-            alignSelf: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#005',
-            borderRadius: 15
-          }}
+          style={styles.updateButtom}
           onPress={() => {
             createProduct()
           }}
         >
           <Text
-            style={{ fontSize: 30, color: "#fff" }}
+            style={styles.updateButtomText}
           >
             {"Atualizar"}
           </Text>
@@ -197,3 +170,86 @@ const NewProduct: React.FC<INewProductProp> = ({ onProductCreated }) => {
 }
 
 export default NewProduct;
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'center',
+    margin: 50,
+    backgroundColor: Colors.store.backgroundCardDark,
+    borderRadius: 20,
+    width: 300,
+    height: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: Colors.store.borderDark,
+    borderWidth: 3
+  },
+  nameText: {
+    color: Colors.store.textDarkColor
+  },
+  nameInput: {
+    borderRadius:5,
+    borderWidth:2,
+    borderColor: Colors.store.border,
+    width: 250,
+    height: 30,
+    backgroundColor: Colors.store.backgroundCard,
+    textAlign: 'center'
+  },
+  descriptionText: {
+    color: Colors.store.textDarkColor
+  },
+  descriptionInput: {
+    borderRadius:5,
+    borderWidth:2,
+    borderColor: Colors.store.border,
+    width: 250,
+    height: 30,
+    backgroundColor: Colors.store.backgroundCard,
+    textAlign: 'center'
+  },
+  priceView: {
+    flexDirection: 'row'
+  },
+  priceText: {
+    color: Colors.store.textDarkColor
+  },
+  priceInput: {
+    borderRadius:5,
+    borderWidth:2,
+    borderColor: Colors.store.border,
+    width: 250,
+    height: 30,
+    backgroundColor: Colors.store.backgroundCard,
+    textAlign: 'center'
+  },
+  imageContainer: {
+    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  imageTitle: {
+    color: Colors.store.textDarkColor
+  },
+  image: {
+    alignSelf: 'center',
+    margin: 0,
+    backgroundColor: '#000',
+  },
+  updateButtom: {
+    margin: 0,
+    height: 50,
+    width: 150,
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor:Colors.store.backgroundCard,
+    borderWidth: 4,
+    borderColor: Colors.store.border,
+    borderRadius: 15
+  },
+  updateButtomText: {
+    fontSize: 30,
+    color: Colors.store.text
+  }
+})
