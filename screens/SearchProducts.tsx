@@ -7,7 +7,7 @@ import ProductList, { Product } from '../components/ProductList';
 import { View } from '../components/Themed';
 import api from '../services/api';
 
-const TabTwoScreen: React.FC = () => {
+const SearchProducts: React.FC = () => {
   const [list, setList] = React.useState<Product[]>([]);
   const [searchValue, setSearchValue] = React.useState('');
   const handleSearch = React.useCallback(
@@ -70,7 +70,7 @@ const TabTwoScreen: React.FC = () => {
     </View>
   );
 }
-export default TabTwoScreen;
+export default SearchProducts;
 
 const styles = StyleSheet.create({
   container: {
